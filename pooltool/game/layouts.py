@@ -261,6 +261,48 @@ def _wiggle(x: float, y: float, spacer: float) -> Tuple[float, float]:
 
     return x + rad * np.cos(ang), y + rad * np.sin(ang)
 
+def get_fifteen_ball_rack(
+    *args,
+    ballset: Optional[BallSet] = None,
+    ball_params: Optional[BallParams] = None,
+    **kwargs,
+) -> Balls:
+    if ball_params is None:
+        ball_params = BallParams.default(game_type=GameType.FIFTEENBALL)
+
+    if ballset is None:
+        ballset = DEFAULT_STANDARD_BALLSET
+
+    blueprint = ball_cluster_blueprint(
+        seed=BallPos([], (0.5, 0.77), {"1"}),
+        jump_sequence=[
+            # row 2
+            (Jump.UPLEFT(), {"2"}),
+            (Jump.RIGHT(), {"3"}),
+            # row 3
+            (Jump.UPRIGHT(), {"4"}),
+            (Jump.LEFT(), {"5"}),
+            (Jump.LEFT(), {"6"}),
+            # row 4
+            (Jump.UPLEFT(), {"7"}),
+            (Jump.RIGHT(), {"8"}),
+            (Jump.RIGHT(), {"9"}),
+            (Jump.RIGHT(), {"10"}),
+            # row 5
+            (Jump.UPRIGHT(), {"11"}),
+            (Jump.LEFT(), {"12"}),
+            (Jump.LEFT(), {"13"}),
+            (Jump.LEFT(), {"14"}),
+            (Jump.LEFT(), {"15"}),
+        ],
+    )
+
+    cue = BallPos([], (0.5, 0.23), {"cue"})
+    blueprint += [cue]
+
+    return generate_layout(
+        blueprint, *args, ballset=ballset, ball_params=ball_params, **kwargs
+    )
 
 def get_nine_ball_rack(
     *args,
@@ -442,6 +484,7 @@ class GetRackProtocol(Protocol):
 
 
 _game_rack_map: Dict[str, GetRackProtocol] = {
+    GameType.FIFTEENBALL: get_fifteen_ball_rack,
     GameType.NINEBALL: get_nine_ball_rack,
     GameType.EIGHTBALL: get_eight_ball_rack,
     GameType.THREECUSHION: get_three_cushion_rack,

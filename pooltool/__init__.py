@@ -32,6 +32,7 @@ from pooltool.events import (
 from pooltool.evolution import continuize, simulate
 from pooltool.game.datatypes import GameType
 from pooltool.game.layouts import (
+    get_fifteen_ball_rack,
     get_eight_ball_rack,
     get_nine_ball_rack,
     get_rack,

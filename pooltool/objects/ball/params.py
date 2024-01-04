@@ -115,6 +115,7 @@ BALL_PARAMS: Dict[PrebuiltBallParams, BallParams] = {
 
 
 _default_map: Dict[GameType, PrebuiltBallParams] = {
+    GameType.FIFTEENBALL: PrebuiltBallParams.POOL_GENERIC,
     GameType.EIGHTBALL: PrebuiltBallParams.POOL_GENERIC,
     GameType.NINEBALL: PrebuiltBallParams.POOL_GENERIC,
     GameType.THREECUSHION: PrebuiltBallParams.BILLIARD_GENERIC,

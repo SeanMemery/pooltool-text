@@ -7,7 +7,7 @@ from typing import Dict, Iterator, List, Optional
 import numpy as np
 from attrs import define, field
 
-import pooltool.math as math
+import pooltool.ptmath as math
 import pooltool.physics.utils as physics_utils
 from pooltool.error import ConfigError
 from pooltool.events import Event
@@ -18,6 +18,7 @@ from pooltool.potting import PottingConfig
 from pooltool.serialize import conversion
 from pooltool.serialize.serializers import Pathish
 
+Balls = Dict[str, Ball]
 
 @define
 class System:

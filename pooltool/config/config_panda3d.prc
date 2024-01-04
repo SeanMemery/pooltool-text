@@ -10,3 +10,6 @@ fullscreen #f
 sync-video #f
 
 gl-check-errors #f
+
+notify-level warning #f
+
