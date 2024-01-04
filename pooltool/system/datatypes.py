@@ -7,26 +7,23 @@ from typing import Dict, Iterator, List, Optional
 import numpy as np
 from attrs import define, field
 
+import pooltool.math as math
 import pooltool.physics.utils as physics_utils
-import pooltool.ptmath as ptmath
 from pooltool.error import ConfigError
 from pooltool.events import Event
-from pooltool.objects.ball.datatypes import Ball, BallHistory
-from pooltool.objects.ball.sets import BallSet
+from pooltool.objects.ball.datatypes import Ball, BallHistory, BallState
 from pooltool.objects.cue.datatypes import Cue
 from pooltool.objects.table.datatypes import Table
 from pooltool.potting import PottingConfig
 from pooltool.serialize import conversion
 from pooltool.serialize.serializers import Pathish
 
-Balls = Dict[str, Ball]
-
 
 @define
 class System:
     cue: Cue
     table: Table
-    balls: Balls
+    balls: Dict[str, Ball]
 
     t: float = field(default=0)
     events: List[Event] = field(factory=list)
@@ -43,15 +40,6 @@ class System:
         """Define any meta data for the shot"""
         raise NotImplementedError()
 
-    def set_ballset(self, ballset: BallSet) -> None:
-        """Set the ballset attribute for each Ball in self.balls
-
-        Raises:
-            ValueError if any balls' IDs don't correspond to a model name
-        """
-        for ball in self.balls.values():
-            ball.set_ballset(ballset)
-
     def update_history(self, event: Event):
         """Updates the history for all balls"""
         self.t = event.time
@@ -61,6 +49,15 @@ class System:
             ball.history.add(ball.state)
 
         self.events.append(event)
+
+    def get_board_state(self) -> str:
+        """Get a string representation of the board state"""
+        return "\n".join(
+            [
+                f"Ball {ball.id}: ({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
+                for ball in self.balls.values()
+            ]
+        )
 
     def reset_history(self):
         """Remove all events, histories, and reset time"""
@@ -94,8 +91,8 @@ class System:
 
         cueing_ball = self.balls[self.cue.cue_ball_id]
 
-        direction = ptmath.angle(
-            ptmath.unit_vector(np.array(pos) - cueing_ball.state.rvw[0])
+        direction = math.angle(
+            math.unit_vector(np.array(pos) - cueing_ball.state.rvw[0])
         )
         self.cue.set_state(phi=direction * 180 / np.pi)
 
@@ -134,7 +131,7 @@ class System:
         left = True if cut < 0 else False
         cut = np.abs(cut) * np.pi / 180
         R = object_ball.params.R
-        d = ptmath.norm3d(object_ball.state.rvw[0] - cueing_ball.state.rvw[0])
+        d = math.norm3d(object_ball.state.rvw[0] - cueing_ball.state.rvw[0])
 
         lower_bound = 0
         upper_bound = np.pi / 2 - np.arccos((2 * R) / d)

@@ -184,13 +184,15 @@ class Event:
     event_type: EventType
     agents: Tuple[Agent, ...]
     time: float
+    description: str
 
     def __repr__(self):
         lines = [
             f"<{self.__class__.__name__} object at {hex(id(self))}>",
             f" ├── type   : {self.event_type}",
             f" ├── time   : {self.time}",
-            f" └── agents : {self.ids}",
+            f" ├── agents : {self.ids}",
+            f" └── desc   : {self.description}",
         ]
         return "\n".join(lines) + "\n"
 
@@ -201,3 +203,6 @@ class Event:
     def copy(self) -> Event:
         """Create a deepcopy"""
         return evolve(self)
+    
+    def __str__(self):
+        return self.description
