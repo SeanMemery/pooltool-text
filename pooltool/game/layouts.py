@@ -277,23 +277,23 @@ def get_fifteen_ball_rack(
         seed=BallPos([], (0.5, 0.77), {"1"}),
         jump_sequence=[
             # row 2
-            (Jump.UPLEFT(), {"2"}),
-            (Jump.RIGHT(), {"3"}),
+            (Jump.UPLEFT(), {"5"}),
+            (Jump.RIGHT(), {"11"}),
             # row 3
-            (Jump.UPRIGHT(), {"4"}),
-            (Jump.LEFT(), {"5"}),
-            (Jump.LEFT(), {"6"}),
+            (Jump.UPRIGHT(), {"2"}),
+            (Jump.LEFT(), {"8"}),
+            (Jump.LEFT(), {"10"}),
             # row 4
-            (Jump.UPLEFT(), {"7"}),
-            (Jump.RIGHT(), {"8"}),
+            (Jump.UPLEFT(), {"4"}),
+            (Jump.RIGHT(), {"14"}),
+            (Jump.RIGHT(), {"7"}),
             (Jump.RIGHT(), {"9"}),
-            (Jump.RIGHT(), {"10"}),
             # row 5
-            (Jump.UPRIGHT(), {"11"}),
-            (Jump.LEFT(), {"12"}),
-            (Jump.LEFT(), {"13"}),
-            (Jump.LEFT(), {"14"}),
+            (Jump.UPRIGHT(), {"6"}),
             (Jump.LEFT(), {"15"}),
+            (Jump.LEFT(), {"13"}),
+            (Jump.LEFT(), {"3"}),
+            (Jump.LEFT(), {"12"}),
         ],
     )
 

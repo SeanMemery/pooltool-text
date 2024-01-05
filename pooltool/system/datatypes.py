@@ -51,12 +51,36 @@ class System:
 
         self.events.append(event)
 
+    def pot_check(self, ball: Ball) -> bool:
+        """Check if a ball has been potted
+
+        Parameters
+        ==========
+        ball : pooltool.objects.ball.Ball
+            A ball
+
+        Returns
+        =======
+        bool
+            True if the ball has been potted, False otherwise
+        """
+        x = ball.xyz[0]
+        y = ball.xyz[1]
+        pockets_xy = [(pocket.center[0], pocket.center[1]) for pocket in self.table.pockets.values()]
+
+        return any(
+            [
+                (x - pocket_x) ** 2 + (y - pocket_y) ** 2 < 0.01
+                for pocket_x, pocket_y in pockets_xy
+            ]
+        )
+
     def get_board_state(self) -> str:
         """Get a string representation of the board state"""
         return "\n".join(
             [
                 f"Ball {ball.id}: ({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
-                for ball in self.balls.values()
+                for ball in self.balls.values() if not self.pot_check(ball)
             ]
         )
 
