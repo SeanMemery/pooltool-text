@@ -41,6 +41,10 @@ def ball_ball_collision(
 def ball_linear_cushion_collision(
     ball: Ball, cushion: LinearCushionSegment, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.BALL_LINEAR_CUSHION,
         agents=(
@@ -48,13 +52,17 @@ def ball_linear_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion {cushion.id}.",
+        description=f"Ball {ball.id} collided with cushion {cushion.id} at {position}.",
     )
 
 
 def ball_circular_cushion_collision(
     ball: Ball, cushion: CircularCushionSegment, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.BALL_CIRCULAR_CUSHION,
         agents=(
@@ -62,13 +70,25 @@ def ball_circular_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion {cushion.id}.",
+        description=f"Ball {ball.id} collided with cushion {cushion.id} at {position}.",
     )
 
 
 def ball_pocket_collision(
     ball: Ball, pocket: Pocket, time: float, set_initial: bool = False
 ) -> Event:
+    
+    # Dict of positions of pockets (so that theyre rounded for simplicity)
+    position = {
+        "lb": (0.00, 0.00),
+        "lc": (0.00, 1.00),
+        "lt": (0.00, 2.00),
+        "rb": (1.00, 0.00),
+        "rc": (1.00, 1.00),
+        "rt": (1.00, 2.00)
+    }[pocket.id]
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.BALL_POCKET,
         agents=(
@@ -76,7 +96,7 @@ def ball_pocket_collision(
             Agent.from_object(pocket, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} fell into pocket {pocket.id}.",
+        description=f"Ball {ball.id} fell into pocket {pocket.id} at {position}.",
     )
 
 
@@ -84,7 +104,7 @@ def stick_ball_collision(
     stick: Cue, ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
     
-    pos = f"({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
+    position = f"({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
 
     return Event(
         event_type=EventType.STICK_BALL,
@@ -93,49 +113,65 @@ def stick_ball_collision(
             Agent.from_object(ball, set_initial=set_initial),
         ),
         time=time,
-        description=f"Stick {stick.id} collided with ball {ball.id} at position {pos}.",
+        description=f"Stick {stick.id} collided with ball {ball.id} at position {position}.",
     )
 
 
 def spinning_stationary_transition(
     ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.SPINNING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from spinning to stationary.",
+        description=f"Ball {ball.id} transitioned from spinning to stationary at {position}.",
     )
 
 
 def rolling_stationary_transition(
     ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.ROLLING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from rolling to stationary.",
+        description=f"Ball {ball.id} transitioned from rolling to stationary at {position}.",
     )
 
 
 def rolling_spinning_transition(
     ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.ROLLING_SPINNING,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from rolling to spinning.",
+        description=f"Ball {ball.id} transitioned from rolling to spinning at {position}.",
     )
 
 
 def sliding_rolling_transition(
     ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
+    
+    position = ball.xyz
+    position = f"({position[0]:.2f},{position[1]:.2f})"
+
     return Event(
         event_type=EventType.SLIDING_ROLLING,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from sliding to rolling.",
+        description=f"Ball {ball.id} transitioned from sliding to rolling at {position}.",
     )
