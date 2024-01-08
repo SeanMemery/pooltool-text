@@ -80,6 +80,7 @@ def ball_pocket_collision(
     
     # Dict of positions of pockets (so that theyre rounded for simplicity)
     position = {
+        "dummy": (-1.00, -1.00),
         "lb": (0.00, 0.00),
         "lc": (0.00, 1.00),
         "lt": (0.00, 2.00),
