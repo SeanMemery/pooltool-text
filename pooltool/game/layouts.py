@@ -261,6 +261,32 @@ def _wiggle(x: float, y: float, spacer: float) -> Tuple[float, float]:
 
     return x + rad * np.cos(ang), y + rad * np.sin(ang)
 
+def get_one_ball_rack(
+    *args,
+    ballset: Optional[BallSet] = None,
+    ball_params: Optional[BallParams] = None,
+    **kwargs,
+) -> Balls:
+    if ball_params is None:
+        ball_params = BallParams.default(game_type=GameType.SANDBOX)
+
+    if ballset is None:
+        ballset = DEFAULT_STANDARD_BALLSET
+
+    # Get random position with r from center
+    r = 0.1
+    ang = 2 * np.pi * np.random.rand()
+    x = 0.5 + r * np.cos(ang)
+    y = 0.5 + r * np.sin(ang)
+    blueprint = [BallPos([], (x, y), {"1"})]
+    
+    cue = BallPos([], (0.5, 0.23), {"cue"})
+    blueprint += [cue]
+
+    return generate_layout(
+        blueprint, *args, ballset=ballset, ball_params=ball_params, **kwargs
+    )
+
 def get_fifteen_ball_rack(
     *args,
     ballset: Optional[BallSet] = None,
@@ -484,6 +510,7 @@ class GetRackProtocol(Protocol):
 
 
 _game_rack_map: Dict[str, GetRackProtocol] = {
+    GameType.ONEBALL: get_one_ball_rack,
     GameType.FIFTEENBALL: get_fifteen_ball_rack,
     GameType.NINEBALL: get_nine_ball_rack,
     GameType.EIGHTBALL: get_eight_ball_rack,
