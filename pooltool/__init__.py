@@ -33,6 +33,7 @@ from pooltool.evolution import continuize, simulate
 from pooltool.game.datatypes import GameType
 from pooltool.game.layouts import (
     get_one_ball_rack,
+    get_two_ball_rack,
     get_fifteen_ball_rack,
     get_eight_ball_rack,
     get_nine_ball_rack,
@@ -70,6 +71,8 @@ progress = terminal.Progress()
 
 __all__ = [
     "get_one_ball_rack",
+    "get_two_ball_rack",
+    "get_fifteen_ball_rack",
     "get_eight_ball_rack",
     "get_nine_ball_rack",
     "get_three_cushion_rack",

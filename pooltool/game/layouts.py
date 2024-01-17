@@ -274,11 +274,43 @@ def get_one_ball_rack(
         ballset = DEFAULT_STANDARD_BALLSET
 
     # Get random position with r from center
+    ang = 2 * np.pi * np.random.rand()
+    x = 0.5   + 0.2  * np.cos(ang)
+    y = 0.5   + 0.1 * np.sin(ang)
+    blueprint = [BallPos([], (x, y), {"1"})]
+    
+    cue = BallPos([], (0.5, 0.5), {"cue"})
+    blueprint += [cue]
+
+    return generate_layout(
+        blueprint, *args, ballset=ballset, ball_params=ball_params, **kwargs
+    )
+
+def get_two_ball_rack(  
+    *args,
+    ballset: Optional[BallSet] = None,
+    ball_params: Optional[BallParams] = None,
+    **kwargs,
+) -> Balls:
+    if ball_params is None:
+        ball_params = BallParams.default(game_type=GameType.SANDBOX)
+
+    if ballset is None:
+        ballset = DEFAULT_STANDARD_BALLSET
+
+    # Get random position with r from center
     r = 0.1
     ang = 2 * np.pi * np.random.rand()
     x = 0.5 + r * np.cos(ang)
     y = 0.5 + r * np.sin(ang)
     blueprint = [BallPos([], (x, y), {"1"})]
+    
+    # Get random position with r from center
+    r = 0.1
+    ang = 2 * np.pi * np.random.rand()
+    x = 0.5 + r * np.cos(ang)
+    y = 0.75 + r * np.sin(ang)
+    blueprint += [BallPos([], (x, y), {"2"})]
     
     cue = BallPos([], (0.5, 0.23), {"cue"})
     blueprint += [cue]
@@ -511,6 +543,7 @@ class GetRackProtocol(Protocol):
 
 _game_rack_map: Dict[str, GetRackProtocol] = {
     GameType.ONEBALL: get_one_ball_rack,
+    GameType.TWOBALL: get_two_ball_rack,
     GameType.FIFTEENBALL: get_fifteen_ball_rack,
     GameType.NINEBALL: get_nine_ball_rack,
     GameType.EIGHTBALL: get_eight_ball_rack,

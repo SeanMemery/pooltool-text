@@ -52,7 +52,7 @@ def ball_linear_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion {cushion.id} at {position}.",
+        description=f"Ball {ball.id} collided with cushion at {position}.",
     )
 
 
@@ -70,7 +70,7 @@ def ball_circular_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion {cushion.id} at {position}.",
+        description=f"Ball {ball.id} collided with cushion at {position}.",
     )
 
 
