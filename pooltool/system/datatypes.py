@@ -71,14 +71,9 @@ class System:
             for ball in self.balls.values()
             if ball.state.s != const.pocketed
         }
-        pockets = {
-            pocket.id: (pocket.xyz[0], pocket.xyz[1])
-            for pocket in self.table.pockets.values()
-        }
         return {
             "text": text,
-            "balls": balls,
-            "pockets": pockets
+            "balls": balls
         }
 
     def reset_history(self):
