@@ -54,13 +54,32 @@ class System:
 
 
     def get_board_state(self) -> str:
-        """Get a string representation of the board state"""
-        return "\n".join(
+        """
+        Get a representation of the board state
+            - text: string representation of the board state
+            - balls: dict of balls on the table with their positions
+            - pockets: dict of pockets on the table with their positions
+        """
+        text = "\n".join(
             [
                 f"Ball {ball.id}: ({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
                 for ball in self.balls.values() if ball.state.s != const.pocketed
             ]
         )
+        balls = {
+            ball.id: (ball.xyz[0], ball.xyz[1])
+            for ball in self.balls.values()
+            if ball.state.s != const.pocketed
+        }
+        pockets = {
+            pocket.id: (pocket.xyz[0], pocket.xyz[1])
+            for pocket in self.table.pockets.values()
+        }
+        return {
+            "text": text,
+            "balls": balls,
+            "pockets": pockets
+        }
 
     def reset_history(self):
         """Remove all events, histories, and reset time"""
