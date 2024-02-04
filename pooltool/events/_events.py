@@ -34,7 +34,7 @@ def ball_ball_collision(
             Agent.from_object(ball2, set_initial=set_initial),
         ),
         time=time,
-        description = f"Ball {ball1.id} collided with ball {ball2.id} at {position}.",
+        description = f"Ball {ball2.id} collided with ball {ball1.id} at {position}.",
     )
 
 

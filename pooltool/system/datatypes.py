@@ -53,12 +53,11 @@ class System:
         self.events.append(event)
 
 
-    def get_board_state(self) -> str:
+    def get_board_state(self) -> dict:
         """
         Get a representation of the board state
             - text: string representation of the board state
             - balls: dict of balls on the table with their positions
-            - pockets: dict of pockets on the table with their positions
         """
         text = "\n".join(
             [
