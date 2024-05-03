@@ -52,6 +52,9 @@ class System:
 
         self.events.append(event)
 
+    def get_ball_history(self) -> Dict[str, BallState]:
+        """Get the history of all balls"""
+        return {ball.id: ball.history for ball in self.balls.values()}
 
     def get_board_state(self) -> dict:
         """

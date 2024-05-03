@@ -185,14 +185,16 @@ class Event:
     agents: Tuple[Agent, ...]
     time: float
     description: str
+    typ_obj: Tuple[str, str, str]
 
     def __repr__(self):
         lines = [
             f"<{self.__class__.__name__} object at {hex(id(self))}>",
-            f" ├── type   : {self.event_type}",
-            f" ├── time   : {self.time}",
-            f" ├── agents : {self.ids}",
-            f" └── desc   : {self.description}",
+            f" ├── type    : {self.event_type}",
+            f" ├── time    : {self.time}",
+            f" ├── agents  : {self.ids}",
+            f" ├── typ_obj : {self.typ_obj}",
+            f" └── desc    : {self.description}",
         ]
         return "\n".join(lines) + "\n"
 

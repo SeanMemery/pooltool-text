@@ -16,6 +16,7 @@ def null_event(time: float, set_initial: bool = False) -> Event:
         event_type=EventType.NONE,
         agents=(Agent.from_object(NullObject(), set_initial=set_initial),),
         time=time,
+        typ_obj=("", "", ""),
         description="Null event",
     )
 
@@ -34,7 +35,8 @@ def ball_ball_collision(
             Agent.from_object(ball2, set_initial=set_initial),
         ),
         time=time,
-        description = f"Ball {ball2.id} collided with ball {ball1.id} at {position}.",
+        typ_obj=("ball-ball", ball1.id, ball2.id),
+        description = f"Ball {ball1.id} collided with ball {ball2.id}.",
     )
 
 
@@ -52,7 +54,8 @@ def ball_linear_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion at {position}.",
+        typ_obj=("ball-cushion", ball.id, cushion.id),
+        description=f"Ball {ball.id} collided with cushion.",
     )
 
 
@@ -70,7 +73,8 @@ def ball_circular_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} collided with cushion at {position}.",
+        typ_obj=("ball-cushion", ball.id, cushion.id),
+        description=f"Ball {ball.id} collided with cushion.",
     )
 
 
@@ -97,7 +101,8 @@ def ball_pocket_collision(
             Agent.from_object(pocket, set_initial=set_initial),
         ),
         time=time,
-        description=f"Ball {ball.id} fell into pocket {pocket.id} at {position}.",
+        typ_obj=("ball-pocket", ball.id, pocket.id),
+        description=f"Ball {ball.id} fell into pocket {pocket.id}.",
     )
 
 
@@ -114,7 +119,8 @@ def stick_ball_collision(
             Agent.from_object(ball, set_initial=set_initial),
         ),
         time=time,
-        description=f"Stick {stick.id} collided with ball {ball.id} at position {position}.",
+        typ_obj=("stick-ball", "stick", ball.id),
+        description=f"Stick {stick.id} collided with ball {ball.id}.",
     )
 
 
@@ -129,7 +135,8 @@ def spinning_stationary_transition(
         event_type=EventType.SPINNING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from spinning to stationary at {position}.",
+        typ_obj=("","",""),
+        description=f"Ball {ball.id} transitioned from spinning to stationary.",
     )
 
 
@@ -144,7 +151,8 @@ def rolling_stationary_transition(
         event_type=EventType.ROLLING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from rolling to stationary at {position}.",
+        typ_obj=("","",""),
+        description=f"Ball {ball.id} transitioned from rolling to stationary.",
     )
 
 
@@ -159,7 +167,8 @@ def rolling_spinning_transition(
         event_type=EventType.ROLLING_SPINNING,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from rolling to spinning at {position}.",
+        typ_obj=("","",""),
+        description=f"Ball {ball.id} transitioned from rolling to spinning.",
     )
 
 
@@ -174,5 +183,6 @@ def sliding_rolling_transition(
         event_type=EventType.SLIDING_ROLLING,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        description=f"Ball {ball.id} transitioned from sliding to rolling at {position}.",
+        typ_obj=("","",""),
+        description=f"Ball {ball.id} transitioned from sliding to rolling.",
     )
