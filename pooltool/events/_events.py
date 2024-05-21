@@ -26,7 +26,7 @@ def ball_ball_collision(
 ) -> Event:
 
     position = (ball1.xyz + ball2.xyz) / 2
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.BALL_BALL,
@@ -35,7 +35,7 @@ def ball_ball_collision(
             Agent.from_object(ball2, set_initial=set_initial),
         ),
         time=time,
-        typ_obj=("ball-ball", ball1.id, ball2.id),
+        typ_obj=("ball-ball", f"{ball1.id}-{ball2.id}", position),
         description = f"Ball {ball1.id} collided with ball {ball2.id}.",
     )
 
@@ -45,7 +45,7 @@ def ball_linear_cushion_collision(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.BALL_LINEAR_CUSHION,
@@ -54,7 +54,7 @@ def ball_linear_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        typ_obj=("ball-cushion", ball.id, cushion.id),
+        typ_obj=("ball-cushion", f"{ball.id}-{cushion.id}", position),
         description=f"Ball {ball.id} collided with cushion.",
     )
 
@@ -64,7 +64,7 @@ def ball_circular_cushion_collision(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.BALL_CIRCULAR_CUSHION,
@@ -73,7 +73,7 @@ def ball_circular_cushion_collision(
             Agent.from_object(cushion, set_initial=set_initial),
         ),
         time=time,
-        typ_obj=("ball-cushion", ball.id, cushion.id),
+        typ_obj=("ball-cushion", f"{ball.id}-{cushion.id}", position),
         description=f"Ball {ball.id} collided with cushion.",
     )
 
@@ -92,7 +92,7 @@ def ball_pocket_collision(
         "rc": (1.00, 1.00),
         "rt": (1.00, 2.00)
     }[pocket.id]
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.BALL_POCKET,
@@ -101,7 +101,7 @@ def ball_pocket_collision(
             Agent.from_object(pocket, set_initial=set_initial),
         ),
         time=time,
-        typ_obj=("ball-pocket", ball.id, pocket.id),
+        typ_obj=("ball-pocket", f"{ball.id}-{pocket.id}", position),
         description=f"Ball {ball.id} fell into pocket {pocket.id}.",
     )
 
@@ -119,7 +119,7 @@ def stick_ball_collision(
             Agent.from_object(ball, set_initial=set_initial),
         ),
         time=time,
-        typ_obj=("stick-ball", "stick", ball.id),
+        typ_obj=("stick-ball", f"stick-{ball.id}", position),
         description=f"Stick {stick.id} collided with ball {ball.id}.",
     )
 
@@ -129,13 +129,13 @@ def spinning_stationary_transition(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.SPINNING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        typ_obj=("","",""),
+        typ_obj=("ball-stop",f"{ball.id}-{ball.id}",position),
         description=f"Ball {ball.id} transitioned from spinning to stationary.",
     )
 
@@ -145,13 +145,13 @@ def rolling_stationary_transition(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.ROLLING_STATIONARY,
         agents=(Agent.from_object(ball, set_initial=set_initial),),
         time=time,
-        typ_obj=("","",""),
+        typ_obj=("ball-stop",f"{ball.id}-{ball.id}",position),
         description=f"Ball {ball.id} transitioned from rolling to stationary.",
     )
 
@@ -161,7 +161,7 @@ def rolling_spinning_transition(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.ROLLING_SPINNING,
@@ -177,7 +177,7 @@ def sliding_rolling_transition(
 ) -> Event:
     
     position = ball.xyz
-    position = f"({position[0]:.2f},{position[1]:.2f})"
+    position = f"({abs(position[0]):.2f},{abs(position[1]):.2f})"
 
     return Event(
         event_type=EventType.SLIDING_ROLLING,
