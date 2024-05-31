@@ -110,7 +110,7 @@ def stick_ball_collision(
     stick: Cue, ball: Ball, time: float, set_initial: bool = False
 ) -> Event:
     
-    position = f"({ball.xyz[0]:.2f},{ball.xyz[1]:.2f})"
+    position = f"({abs(ball.xyz[0]):.2f},{abs(ball.xyz[1]):.2f})"
 
     return Event(
         event_type=EventType.STICK_BALL,
