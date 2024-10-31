@@ -3,7 +3,8 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="pooltool-billiards",
+    #name="pooltool-billiards",
+    name="pooltool",
     version="0.2.1",
     packages=find_packages(),
     scripts=["run_pooltool", "run_pooltool.bat"],

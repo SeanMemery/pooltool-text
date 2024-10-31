@@ -1,3 +1,4 @@
+*.swp
 pooltool/config/settings.local
 
 sandbox/collection.json*
