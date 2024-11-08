@@ -49,11 +49,6 @@ def min_real_root(
 
     big = real_mag > abs_or_rel_cutoff
     big_keep = (imag_mag < atol) & positive
-
-    try:
-        _ = imag_mag / real_mag
-    except:
-        return np.complex128(np.inf)
     
     small = real_mag <= abs_or_rel_cutoff
     small_keep1 = (real_mag > 0) & ((imag_mag / real_mag) < rtol)
