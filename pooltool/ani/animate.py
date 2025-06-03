@@ -255,7 +255,7 @@ class FrameStepper(Interface):
         multisystem.reset()
         multisystem.append(system)
 
-        _resize_offscreen_window(size)
+        #_resize_offscreen_window(size)
 
         self.create_scene()
 
